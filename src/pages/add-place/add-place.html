@@ -1,0 +1,86 @@
+<!--
+  Generated template for the AddPlacePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>add-place</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <ion-list>
+      <ion-item>
+        <ion-label fixed>title</ion-label>
+        <ion-input
+          type="text"
+          placeholder="beautifull church..."
+          name="title"
+          ngModel
+          required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>short desc</ion-label>
+        <ion-textarea
+          name="desc"
+          ngModel
+          required
+        ></ion-textarea>
+      </ion-item>
+
+    </ion-list>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <button ion-button block outline type="button" icon-left (click)="onLocate()">
+            <ion-icon name="locate"></ion-icon>
+            locate me
+          </button>
+        </ion-col>
+        <ion-col>
+          <button ion-button block outline type="button" icon-left (click)="onOpenMap()">
+            <ion-icon name="map"></ion-icon>
+            select on map
+          </button>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="marker">
+        <ion-col>
+          <p>selected place...</p>
+          <agm-map  [mapDraggable]="false" [latitude]="marker.lat" [longitude]="marker.lng" [zoom]="16">
+            <agm-marker  [latitude]="marker.lat" [longitude]="marker.lng"></agm-marker>
+          </agm-map>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col text-center>
+          <h5>take a photo</h5>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <button ion-button icon-left block outline type="button" (click)="onTakePhoto()">
+            <ion-icon name="camera"></ion-icon>
+            open camera
+          </button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <img src="{{''}}" alt="">
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <button ion-button [disabled]="!f.valid || !marker" color="secondary" block type="submit">add this place</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

@@ -1,5 +1,10 @@
 <ion-header>
   <ion-navbar>
+    <ion-buttons end>
+      <button [navPush]="'AddPlacePage'" (click)="onAdd()" ion-button icon-only>
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title>
       Ionic Blank
     </ion-title>
