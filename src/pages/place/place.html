@@ -14,5 +14,17 @@
 
 
 <ion-content padding>
+  <ion-card>
+    <ion-card-title> {{place?.title}}</ion-card-title>
+    <ion-card-content>
+      <img src="{{place?.imgPth}}" alt="{{place?.desc}}">
+      <agm-map [mapDraggable]="false" [latitude]="place?.location?.lat" [longitude]="place?.location?.lng" [zoom]="16">
+        <agm-marker [latitude]="place?.location?.lat" [longitude]="place?.location?.lng"></agm-marker>
+      </agm-map>
+      <p>{{place?.desc}}</p>
+    </ion-card-content>
+
+
+  </ion-card>
 
 </ion-content>

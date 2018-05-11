@@ -53,8 +53,8 @@
       <ion-row *ngIf="marker">
         <ion-col>
           <p>selected place...</p>
-          <agm-map  [mapDraggable]="false" [latitude]="marker.lat" [longitude]="marker.lng" [zoom]="16">
-            <agm-marker  [latitude]="marker.lat" [longitude]="marker.lng"></agm-marker>
+          <agm-map [mapDraggable]="false" [latitude]="marker.lat" [longitude]="marker.lng" [zoom]="16">
+            <agm-marker [latitude]="marker.lat" [longitude]="marker.lng"></agm-marker>
           </agm-map>
         </ion-col>
       </ion-row>
@@ -73,12 +73,14 @@
       </ion-row>
       <ion-row>
         <ion-col>
-          <img src="{{''}}" alt="">
+          <img src="{{imgUrl}}" alt="">
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
-          <button ion-button [disabled]="!f.valid || !marker" color="secondary" block type="submit">add this place</button>
+          <button ion-button [disabled]="!f.valid || !marker ||!imgUrl" color="secondary" block type="submit">add this
+            place
+          </button>
         </ion-col>
       </ion-row>
     </ion-grid>
