@@ -5,6 +5,9 @@ import {Location} from "../../models";
 import {Geolocation} from "@ionic-native/geolocation";
 import {Camera} from '@ionic-native/camera';
 import {PlacesProvider} from "../../providers/places/places";
+import {File} from "@ionic-native/file";
+
+declare var cordova: any;
 
 /**
  * Generated class for the AddPlacePage page.
@@ -30,7 +33,8 @@ export class AddPlacePage {
               private loadingController: LoadingController,
               private  toastController: ToastController,
               private camera: Camera,
-              private  placesProvider: PlacesProvider) {
+              private  placesProvider: PlacesProvider,
+              private file: File) {
   }
 
   ionViewDidLoad() {
@@ -78,11 +82,28 @@ export class AddPlacePage {
       encodingType: this.camera.EncodingType.JPEG,
       correctOrientation: true
     })
-      .then((res) => {
+      .then((res: string) => {
+
+        const name = res.replace(/^.*[\\\/]/, '');
+        const path = res.replace(/[^\/]*$/, '');
+        const newName=new Date().getUTCMilliseconds()+'.jpg'
+        this.file.moveFile(path, name, cordova.file.dataDirectory, newName)
+          .then(data => {
+            this.imgUrl = data.nativeURL;
+            this.camera.cleanup();
+            this.file.removeFile(path,name);
+          })
+          .catch(data => {
+            this.imgUrl = '';
+            this.toastController.create({message: res, duration: 2000}).present();
+            this.camera.cleanup();
+          })
         this.imgUrl = res;
       })
       .catch((res) => {
-        console.log(res)
+        this.imgUrl = '';
+        this.toastController.create({message: res, duration: 2000}).present();
+        this.camera.cleanup();
       })
   }
 }

@@ -6,8 +6,10 @@ import {StatusBar} from '@ionic-native/status-bar';
 
 import {MyApp} from './app.component';
 import {HomePage} from '../pages/home/home';
-import { PlacesProvider } from '../providers/places/places';
+import {PlacesProvider} from '../providers/places/places';
 import {HttpClientModule} from "@angular/common/http";
+import {IonicStorageModule} from "@ionic/storage";
+import {File} from "@ionic-native/file";
 
 @NgModule({
   declarations: [
@@ -17,7 +19,8 @@ import {HttpClientModule} from "@angular/common/http";
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-HttpClientModule
+    HttpClientModule,
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -28,7 +31,8 @@ HttpClientModule
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    PlacesProvider
+    PlacesProvider,
+    File
   ]
 })
 export class AppModule {

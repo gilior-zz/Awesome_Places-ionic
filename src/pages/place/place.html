@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>place</ion-title>
+    <ion-title>{{place?.title}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -15,16 +15,24 @@
 
 <ion-content padding>
   <ion-card>
-    <ion-card-title> {{place?.title}}</ion-card-title>
+    <ion-card-title> {{place?.desc}}</ion-card-title>
     <ion-card-content>
       <img src="{{place?.imgPth}}" alt="{{place?.desc}}">
       <agm-map [mapDraggable]="false" [latitude]="place?.location?.lat" [longitude]="place?.location?.lng" [zoom]="16">
         <agm-marker [latitude]="place?.location?.lat" [longitude]="place?.location?.lng"></agm-marker>
       </agm-map>
-      <p>{{place?.desc}}</p>
+
     </ion-card-content>
 
 
   </ion-card>
+<ion-footer>
+  <ion-grid>
+    <ion-row>
+      <ion-col><button ion-button block (click)="onClose()">Close</button></ion-col>
+      <ion-col><button ion-button block color="danger" (click)="onDelete()">Delete</button></ion-col>
+    </ion-row>
+  </ion-grid>
 
+</ion-footer>
 </ion-content>
