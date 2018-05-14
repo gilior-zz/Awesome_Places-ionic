@@ -1,5 +1,13 @@
-import {Component} from '@angular/core';
-import {IonicPage, LoadingController, ModalController, NavController, NavParams, ToastController} from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {
+  IonicPage,
+  LoadingController,
+  ModalController,
+  Navbar,
+  NavController,
+  NavParams,
+  ToastController
+} from 'ionic-angular';
 import {NgForm} from "@angular/forms";
 import {Location} from "../../models";
 import {Geolocation} from "@ionic-native/geolocation";
@@ -22,6 +30,7 @@ declare var cordova: any;
   templateUrl: 'add-place.html',
 })
 export class AddPlacePage {
+  @ViewChild(Navbar) navbar: Navbar
   location: Location = new Location(40.7324324, -73.9759827)
   marker: Location;
   imgUrl: string = '';
@@ -86,12 +95,12 @@ export class AddPlacePage {
 
         const name = res.replace(/^.*[\\\/]/, '');
         const path = res.replace(/[^\/]*$/, '');
-        const newName=new Date().getUTCMilliseconds()+'.jpg'
+        const newName = new Date().getUTCMilliseconds() + '.jpg'
         this.file.moveFile(path, name, cordova.file.dataDirectory, newName)
           .then(data => {
             this.imgUrl = data.nativeURL;
             this.camera.cleanup();
-            this.file.removeFile(path,name);
+            this.file.removeFile(path, name);
           })
           .catch(data => {
             this.imgUrl = '';
